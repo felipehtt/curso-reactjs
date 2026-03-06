@@ -1,4 +1,5 @@
-import './App.css';
+import './index.scss';
+
 
 export default function App() {
 
