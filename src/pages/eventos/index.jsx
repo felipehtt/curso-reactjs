@@ -44,8 +44,6 @@ export default function Eventos() {
 
             <section className='secao'>
 
-                <h1></h1>
-
                 <p onClick={clicou} onMouseMove={movimentouMouse}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro illum eveniet illo sequi veniam fugit, optio modi aliquid voluptatibus dicta consequatur alias sit inventore, eius quo at nisi libero hic.</p>
 
                 <input onChange={alterouValor} type="text" placeholder='Digite aqui alguma coisa' />
