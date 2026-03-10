@@ -21,7 +21,7 @@ export default function Contact() {
 
             <section className='secao'>
 
-                <h1>Entre em contato!</h1>
+                <h1>Entre em contato conosco!</h1>
 
                 <img className='icone' src="/assets/images/icone-contato.png" alt='' />
 
