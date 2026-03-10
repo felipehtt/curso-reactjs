@@ -14,7 +14,7 @@ export default function Contact() {
 
             <h1 className='title'>Contato</h1>
 
-            <img className='icone' src="/assets/images/icone-contato.png" />
+            <img className='icone' src="/assets/images/icone-contato.png" alt=''/>
 
         </div>
 

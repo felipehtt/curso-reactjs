@@ -6,7 +6,7 @@ export default function NotFound() {
 
         <div className='pagina-not-found'>
 
-            <img src="/assets/images/404.jpg" />
+            <img src="/assets/images/404.jpg" alt=''/>
 
         </div>
 
