@@ -1,28 +1,46 @@
 import './index.scss';
 import { Link } from 'react-router-dom';
 
+
+
+
 export default function Home() {
 
   return (
 
-    <div className="pagina-home">
+    <div className="pagina-home pagina">
 
-      <h1 className='title'>
-        Estudos de ReactJS
-        <i className='fa fa-heart'></i>
-      </h1>
+      <header className='cabecalho'>
 
-      <br />
+        <h1 className='title'>
+          Estudos de ReactJS
+          <i className='fa fa-heart'></i>
+        </h1>
 
-      <h2>Estudando JSX</h2>
+      </header>
 
-      <ul>
+      <section className='secao'>
 
-        <li>
-          <Link to='/contato'>Ir para Contato</Link>
-        </li>
+        <ul>
 
-      </ul>
+          <li>
+            <Link to='/contato'>Ir para Contato</Link>
+          </li>
+
+          <li>
+            <Link to='/eventos'>Ir para Eventos</Link>
+          </li>
+
+          <li>
+            <Link to='/varEstado'>Ir para Variável de Estado</Link>
+          </li>
+
+        </ul>
+
+      </section>
+
+
+
 
     </div>
 
