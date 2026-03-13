@@ -2,6 +2,7 @@ import './index.scss';
 import { useState } from 'react';
 
 import { tratarNumero } from '../../utils/conversao';
+import { calcularTotalIngresso } from '../../services/ingresso'
 
 
 export default function VarEstado() {
@@ -20,6 +21,15 @@ export default function VarEstado() {
     const [num3, setNum3] = useState(0);
     const [num4, setNum4] = useState(0);
     const [res2, setRes2] = useState(0);
+
+    const [qtdIng, setQtdIng] = useState(0);
+    const [meiaIng, setMeiaIng] = useState(0);
+    const [cupom, setCupom] = useState('');
+    const [totalIng, setTotalIng] = useState(0);
+
+    const [novaMeta, setNovaMeta] = useState('');
+    const [listaMetas, setListaMetas] = useState([]);
+    const [editando, setEditando] = useState(-1);
 
     function aumentar() {
 
@@ -56,6 +66,71 @@ export default function VarEstado() {
 
     }
 
+    function calcularIngresso() {
+
+        let tot = calcularTotalIngresso(qtdIng, meiaIng, cupom)
+
+        setTotalIng(tot);
+
+    }
+
+    function adicionarMeta() {
+
+        if (novaMeta !== '') {
+
+            if (editando == -1) {
+
+                setListaMetas([...listaMetas, novaMeta]);
+
+                setNovaMeta('');
+
+            } else {
+
+                listaMetas[editando] = novaMeta;
+
+                setListaMetas([...listaMetas]);
+
+                setNovaMeta('');
+
+                setEditando(-1);
+
+            }
+
+        }
+
+    }
+
+    function teclaApertada(e) {
+
+        if (e.key === 'Enter') {
+
+            adicionarMeta();
+
+        }
+
+    }
+
+    function removerMeta(pos) {
+
+        const itemRemovido = listaMetas[pos];
+
+        listaMetas.splice(pos, 1);
+
+        setListaMetas([...listaMetas]);
+
+        alert('Estou removendo o item: ' + itemRemovido)
+
+    }
+
+    function alterarMeta(pos) {
+
+        setNovaMeta(listaMetas[pos]);
+
+        setEditando(pos);
+
+    }
+
+
 
     return (
 
@@ -67,14 +142,78 @@ export default function VarEstado() {
 
             </header>
 
-            <div className='secao calculadora'> 
+            <div className='secao metas'>
+
+                <h1>Metas para os próximos 5 anos</h1>
+
+                <div className='entrada'>
+
+                    <input type="text" placeholder='Digite sua meta aqui' onKeyUp={teclaApertada} value={novaMeta} onChange={e => setNovaMeta(e.target.value)} />
+
+                    <button onClick={adicionarMeta}>Adicionar</button>
+
+                </div>
+
+                <ul>
+
+                    {listaMetas.map((item, pos) =>
+
+                        <li key={pos}>
+                            <i class="fa fa-pen-to-square" onClick={() => alterarMeta(pos)}></i>&nbsp;
+                            <i className='fa fa-trash-can' onClick={() => removerMeta(pos)}></i> &nbsp;
+                            {item}
+                        </li>
+
+                    )}
+
+                </ul>
+
+            </div>
+
+            <div className='secao ingresso'>
+
+                <h1> Venda de Ingressos </h1>
+
+                <div className='entrada'>
+
+                    <div>
+                        <label>Quantidade:</label>
+                        <input type="text" value={qtdIng} onChange={e => setQtdIng(e.target.value)} />
+                    </div>
+
+                    <div>
+                        <label>Meia Entrada:</label>
+                        <input type="checkbox" checked={meiaIng} onChange={e => setMeiaIng(e.target.checked)} />
+                    </div>
+
+                    <div>
+                        <label>Cupom:</label>
+                        <input type="text" value={cupom} onChange={e => setCupom(e.target.value)} />
+                    </div>
+
+                    <div>
+                        <label> &nbsp; </label>
+                        <button onClick={calcularIngresso}>Calcular</button>
+                    </div>
+
+                    <hr />
+
+                    <div>
+                        O total é R$ {totalIng}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div className='secao calculadora'>
 
                 <h1> Soma </h1>
 
                 <div className='entrada'>
 
-                    <input type="text" value={num1} onChange={e => setNum1(e.target.value)}/>
-                    <input type="text" value={num2} onChange={e => setNum2(e.target.value)}/>
+                    <input type="text" value={num1} onChange={e => setNum1(e.target.value)} />
+                    <input type="text" value={num2} onChange={e => setNum2(e.target.value)} />
 
                     <div>=</div>
 
@@ -86,14 +225,14 @@ export default function VarEstado() {
 
             </div>
 
-            <div className='secao calculadora2'> 
+            <div className='secao calculadora2'>
 
                 <h1> Subtrair </h1>
 
                 <div className='entrada'>
 
-                    <input type="text" value={num3} onChange={e => setNum3(e.target.value)}/>
-                    <input type="text" value={num4} onChange={e => setNum4(e.target.value)}/>
+                    <input type="text" value={num3} onChange={e => setNum3(e.target.value)} />
+                    <input type="text" value={num4} onChange={e => setNum4(e.target.value)} />
 
                     <div>=</div>
 
