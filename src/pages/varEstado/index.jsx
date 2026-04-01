@@ -1,5 +1,5 @@
 import './index.scss';
-import { useState } from 'react';
+import { use, useState } from 'react';
 
 import { tratarNumero } from '../../utils/conversao';
 import { calcularTotalIngresso } from '../../services/ingresso'
@@ -30,6 +30,9 @@ export default function VarEstado() {
     const [novaMeta, setNovaMeta] = useState('');
     const [listaMetas, setListaMetas] = useState([]);
     const [editando, setEditando] = useState(-1);
+
+    const [areaFace, setAreaFace] = useState(0);
+    const [areaTotal, setAreaTotal] = useState(0);
 
     function aumentar() {
 
@@ -130,6 +133,15 @@ export default function VarEstado() {
 
     }
 
+    function areaCubo() {
+
+        let calc = areaFace ** 2;
+
+        let areaTot = 6 * calc
+
+        setAreaTotal(areaTot)
+
+    }
 
 
     return (
@@ -141,6 +153,26 @@ export default function VarEstado() {
                 <h1>ReactJS | Variável de Estado</h1>
 
             </header>
+
+            <div className='secao calculadora'>
+
+                <h1> Calcúlo da Área do cubo. </h1>
+
+                <p>Informe a medida de uma das arestas:</p> &nbsp;
+
+                <div className='entrada'>
+
+                    <input type="text" value={areaFace} onChange={e => setAreaFace(e.target.value)} />
+
+                    <div>=</div>
+
+                    <div className='res'> {areaTotal} </div>
+
+                </div>
+
+                <button onClick={areaCubo}> Calcular </button>
+
+            </div>
 
             <div className='secao metas'>
 
@@ -159,7 +191,7 @@ export default function VarEstado() {
                     {listaMetas.map((item, pos) =>
 
                         <li key={pos}>
-                            <i class="fa fa-pen-to-square" onClick={() => alterarMeta(pos)}></i>&nbsp;
+                            <i class="fa fa-pen-to-square" onClick={() => alterarMeta(pos)}></i> &nbsp;
                             <i className='fa fa-trash-can' onClick={() => removerMeta(pos)}></i> &nbsp;
                             {item}
                         </li>
